@@ -57,10 +57,11 @@ user.post("/login", async (req, res) => {
           { expiresIn: "1h" }
         );
 
-        // set the token to cookie
-        res.cookie("session", token);
+        // set the token
         res.status(200).json({
           msg: "authenticated",
+          data: existUser,
+          token: token,
         });
       } else {
         res.status(401).json({
@@ -77,14 +78,14 @@ user.post("/login", async (req, res) => {
   }
 });
 
-// logout api
-user.get("/logout", async (req, res) => {
-  try {
-    res.clearCookie("session");
-    res.status(200).json({ msg: "success", data: "logout success" });
-  } catch (err) {
-    res.status(500).json({ msg: "err", data: "internal server error" });
-  }
-});
+// // logout api
+// user.get("/logout", async (req, res) => {
+//   try {
+//     res.clearCookie("session");
+//     res.status(200).json({ msg: "success", data: "logout success" });
+//   } catch (err) {
+//     res.status(500).json({ msg: "err", data: "internal server error" });
+//   }
+// });
 
 module.exports = user;

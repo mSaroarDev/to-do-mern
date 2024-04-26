@@ -2,15 +2,16 @@ const jwt = require("jsonwebtoken");
 
 const checkAuth = (req, res, next) => {
   try {
-    const LoginCookies = req.cookies;
-    const token = LoginCookies.session;
+    const { authorization } = req.headers;
+    const splitAuthorization = authorization.split(" ");
+    const token = splitAuthorization[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const { id, email } = decoded;
     req.id = id;
     req.email = email;
     next();
   } catch (error) {
-    next(error);
+    next("Authorization Failed");
   }
 };
 
