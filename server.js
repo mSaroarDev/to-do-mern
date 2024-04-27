@@ -10,7 +10,20 @@ const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+
+// cors
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "http://localhost:4173",
+      "https://mytodo24.vercel.app",
+      "https://todo.teamsaroar.pw",
+    ],
+  })
+);
 
 // database setup
 mongoose
