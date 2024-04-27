@@ -12,7 +12,9 @@ user.post("/register", async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const existUser = await UserModel.findOne({ email: email });
+    const existUser =
+      (await UserModel.findOne({ email: email })) ||
+      (await UserModel.findOne({ phone: email }));
     if (!email || !phone || !password) {
       res.status(406).json({ msg: "missing fields" });
     } else if (password.length < 6) {
@@ -21,7 +23,7 @@ user.post("/register", async (req, res) => {
         data: "password must be greater than 6 character",
       });
     } else if (existUser) {
-      res.status(409).json({ msg: "err", msg: "duplicate email" });
+      res.status(409).json({ msg: "err", msg: "User already exist" });
     } else {
       const data = new UserModel({ email, phone, password: hashedPassword });
       const response = await data.save();
