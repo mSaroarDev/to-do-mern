@@ -60,7 +60,10 @@ user.post("/login", async (req, res) => {
         );
 
         // set the token to cookie
-        res.cookie("token", token);
+        res.cookie("token", token, {
+          httpOnly: true,
+          sameSite: "none",
+        });
         res.status(200).json({
           msg: "authenticated",
           data: existUser,
