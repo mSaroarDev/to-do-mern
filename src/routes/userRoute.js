@@ -14,7 +14,7 @@ user.post("/register", async (req, res) => {
   try {
     const existUser =
       (await UserModel.findOne({ email: email })) ||
-      (await UserModel.findOne({ phone: email }));
+      (await UserModel.findOne({ phone: phone }));
     if (!email || !phone || !password) {
       res.status(406).json({ msg: "missing fields" });
     } else if (password.length < 6) {
