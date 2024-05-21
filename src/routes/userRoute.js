@@ -59,12 +59,6 @@ user.post("/login", async (req, res) => {
           { expiresIn: "1h" }
         );
 
-        // set the token to cookie
-        res.cookie("token", token, {
-          httpOnly: true,
-          sameSite: "none",
-          secure: true,
-        });
         res.status(200).json({
           msg: "authenticated",
           data: existUser,
