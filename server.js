@@ -15,27 +15,9 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "http://localhost:4173",
-      "https://mytodo24.vercel.app",
-      "https://todo.teamsaroar.pw",
-    ],
+    origin: "https://mytodo24.vercel.app",
   })
 );
-
-app.all("*", function (req, res, next) {
-  const origin = cors.origin.includes(req.header("origin").toLowerCase())
-    ? req.headers.origin
-    : cors.default;
-  res.header("Access-Control-Allow-Origin", origin);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 // database setup
 mongoose
