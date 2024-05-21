@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: "https://mytodo24.vercel.app",
+    origin: process.env.ORIGIN,
   })
 );
 
