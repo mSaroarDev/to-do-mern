@@ -55,8 +55,7 @@ user.post("/login", async (req, res) => {
         const token = jwt.sign(
           { id: existUser._id.toString(), email: existUser.email },
           // { id: 1 },
-          process.env.JWT_SECRET,
-          { expiresIn: "1h" }
+          process.env.JWT_SECRET
         );
 
         res.status(200).json({
